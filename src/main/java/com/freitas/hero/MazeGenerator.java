@@ -13,13 +13,13 @@ public class MazeGenerator {
     private static final int[] DX = {0, 0, 1, -1}; // Directions for movement (right, left, down, up)
     private static final int[] DY = {1, -1, 0, 0};
 
-    private static char[][] maze = new char[HEIGHT][WIDTH];
+    static char[][] MAZE = new char[HEIGHT][WIDTH];
     private static Random random = new Random();
 
     static void initializeMaze() {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                maze[i][j] = WALL;
+                MAZE[i][j] = WALL;
             }
         }
     }
@@ -27,7 +27,7 @@ public class MazeGenerator {
     static void generateMaze(int x, int y) {
         Stack<Integer> stackX = new Stack<>();
         Stack<Integer> stackY = new Stack<>();
-        maze[x][y] = PATH;
+        MAZE[x][y] = PATH;
         stackX.push(x);
         stackY.push(y);
 
@@ -42,9 +42,9 @@ public class MazeGenerator {
                 int nx = x + DX[dir] * 2;
                 int ny = y + DY[dir] * 2;
 
-                if (isValid(nx, ny) && maze[nx][ny] == WALL) {
-                    maze[x + DX[dir]][y + DY[dir]] = PATH;
-                    maze[nx][ny] = PATH;
+                if (isValid(nx, ny) && MAZE[nx][ny] == WALL) {
+                    MAZE[x + DX[dir]][y + DY[dir]] = PATH;
+                    MAZE[nx][ny] = PATH;
                     stackX.push(nx);
                     stackY.push(ny);
                     found = true;
@@ -75,7 +75,8 @@ public class MazeGenerator {
     static void printMaze() {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                System.out.print(maze[i][j]);
+                System.out.print(MAZE[i][j]);
+                System.out.print('.');
             }
             System.out.println();
         }
